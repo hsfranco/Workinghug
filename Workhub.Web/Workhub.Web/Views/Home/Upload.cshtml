@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Upload de Arquivos";
+}
+
+@model Workhub.Web.Models.UploadFiles
+
+<div class="container">
+    <div class="row">
+        <div>
+            @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(true)
+
+                <h1>Upload de Arquivos</h1>
+
+                <hr />
+                
+                @Html.TextBoxFor(model => model.FilePosted, new { type = "file", @class = "inputfile", name = "file", id = "file" })
+                <label id="labelFile"><strog>Clique aqui para escolher o aquivo! <img src="~/Imagens/folder_black_web_upload.png" width="30" height="30" /></strog></label>
+
+                <p>
+                    <input type="submit" class="btn btn-primary" value="Enviar" />
+                </p>
+            }
+
+            <div class="@ViewBag.TipoMensagem">
+                <strong><span>@ViewBag.MensagemRetorno</span></strong>
+            </div>
+
+            @if (ViewData["LinhasImportadas"] != null)
+            {
+                <div id="table" class="table-grid">
+                    <table class="table table-hover">
+                        <tr>
+                            <td><strong>Comprador</strong></td>
+                            <td><strong>Descrição</strong></td>
+                            <td><strong>Preço Unitário</strong></td>
+                            <td><strong>Quantidade</strong></td>
+                            <td><strong>Endereço</strong></td>
+                            <td><strong>Fornecedor</strong></td>
+                        </tr>
+                        @foreach (ArquivosImportados item in (List<ArquivosImportados>)ViewData["LinhasImportadas"])
+                        {
+                            <tr>
+                                <td>@item.Comprador</td>
+                                <td>@item.Descricao</td>
+                                <td>@string.Format("{0:C}", item.PrecoUnitario)</td>
+                                <td>@item.Quantidade</td>
+                                <td>@item.Endereco</td>
+                                <td>@item.Fornecedor</td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Atualiza nome do arquivo selecionado!
+            $('#file').on('change', function () {
+                $('#labelFile').text($('#file').val());
+            });
+            
+            // Acima seleção de arquivo do input file!
+            $('#labelFile').click(function () {
+                $('#file').click();
+            });
+        });
+    </script>
+}
