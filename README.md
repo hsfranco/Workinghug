@@ -1,7 +1,8 @@
 # Workinhub
 
 O projeto foi desenvolvido em ASP.Net com MVC 4 em C#.
-Conexão do banco de dados através do EntityFrameWork com banco de dados SQL Server!
+
+Conexão com banco de dados SQL Server através do EntityFrameWork !
 
 1 - Executar o script SQL para criação da base de dados e tabela "ArquivosImportados" (SCRIPT_DATA_BASE.sql); 
 
